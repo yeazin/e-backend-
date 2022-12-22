@@ -18,7 +18,7 @@ schema_view = get_schema_view(
    openapi.Info(
       title="Assets Tracker",
       default_version='v1',
-      description="Assets Tracker Backend API",
+      description="E Backend API",
       contact=openapi.Contact(email="contact@test.local"),
       license=openapi.License(name="BSD License"),
    ),
@@ -31,7 +31,6 @@ urlpatterns = [
 
     ## apps  url config 
     path('',include('structure.accounts.urls')),
-    path('company/',include('structure.company.urls')),
 
     ## API authentication ENDPOINT
     path('api/token/', views.APILoginView.as_view(), name='token_obtain_pair'),
@@ -42,4 +41,4 @@ urlpatterns = [
 ]
 
 ## static config 
-urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
