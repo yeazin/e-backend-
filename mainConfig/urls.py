@@ -33,7 +33,7 @@ urlpatterns = [
     path('',include('structure.accounts.urls')),
 
     ## API authentication ENDPOINT
-    path('api/token/', views.APILoginView.as_view(), name='token_obtain_pair'),
+    # path('api/token/', views.APILoginView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # Redoc Documention

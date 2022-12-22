@@ -22,6 +22,7 @@ INSTALLED_APPS += [
     'drf_yasg',
     
     'structure.accounts.apps.AccountsConfig',
+    'structure.inventory.apps.InventoryConfig'
 ]
 
 ## Rest Framework configuration 
