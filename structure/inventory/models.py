@@ -94,3 +94,71 @@ class Product(TimeStampMixin):
 
     def __str__(self):
         return self.name
+
+
+"""
+Product Inventory Models. 
+    Note : This product inventory models is a version type models 
+    for example if we have a product name shoes 
+    then there might be chances that product has differenct color and sizes.
+    And thats how the Prodcut inventory comes in. 
+    We can then spacify the varities of products in this product inventory models 
+"""
+
+
+class ProductInventory(TimeStampMixin):
+
+    """
+    Product Inventory Properties
+    """
+
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, related_name="product"
+    )
+    sku = models.CharField(
+        max_length=30,
+        null=False,
+        blank=False,
+        unique=True,
+        verbose_name=_("Stock Keeping UNIT"),
+        help_text=_("required, max-30"),
+    )
+    upc = models.CharField(
+        max_length=30,
+        null=False,
+        blank=False,
+        unique=True,
+        verbose_name=_("Universal Product Code"),
+        help_text=_("required, max-30"),
+    )
+    retail_price = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        unique=False,
+        null=False,
+        blank=False,
+        verbose_name=_("Retail Price"),
+        help_text=_("Format:maximum Price 999.99"),
+        error_messages={
+            "name": {"max_length": _("the price must be between 0 to 999.99")},
+        },
+    )
+    regular_price = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        unique=False,
+        null=False,
+        blank=False,
+        verbose_name=_("Regular Price"),
+        help_text=_("Format:maximum Price 999.99"),
+        error_messages={
+            "name": {"max_length": _("the price must be between 0 to 999.99")},
+        },
+    )
+    weight = models.FloatField(
+        unique=False,
+        null=True,
+        blank=True,
+        verbose_name=_("Product Weight"),
+        help_text=_("Format: Not Required"),
+    )
