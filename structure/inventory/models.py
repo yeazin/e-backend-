@@ -93,7 +93,53 @@ class Product(TimeStampMixin):
         verbose_name_plural = _("Product Table")
 
     def __str__(self):
-        return self.name
+        return str(self.name)
+
+
+"""
+Dependeny models of Product Inventory 
+"""
+
+## Product Type
+class ProductType(TimeStampMixin):
+    """
+    Product properties
+    """
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        blank=False,
+        verbose_name=_("Product Type"),
+        help_text=_("Format: Required and Unique"),
+    )
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name_plural = "Product Type"
+
+
+## Brand
+class Brand(TimeStampMixin):
+    """
+    Brand properties
+    """
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        blank=False,
+        verbose_name=_("Product Type"),
+        help_text=_("Format: Required and Unique"),
+    )
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name_plural = "Brand"
 
 
 """
@@ -162,3 +208,15 @@ class ProductInventory(TimeStampMixin):
         verbose_name=_("Product Weight"),
         help_text=_("Format: Not Required"),
     )
+    product_type = models.ForeignKey(
+        ProductType, on_delete=models.PROTECT, null=True, related_name="product_type"
+    )
+    brand = models.ForeignKey(
+        Brand, on_delete=models.PROTECT, null=True, related_name="brand"
+    )
+
+    def __str__(self):
+        return "Product : {} , Type : {}".format(self.product, self.product_type)
+
+    class Meta:
+        verbose_name_plural = "Product Inventory"
