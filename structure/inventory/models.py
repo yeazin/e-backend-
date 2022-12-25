@@ -220,3 +220,51 @@ class ProductInventory(TimeStampMixin):
 
     class Meta:
         verbose_name_plural = "Product Inventory"
+
+
+"""
+Product Media models 
+"""
+
+
+class ProductInventoryMedia(TimeStampMixin):
+    """
+    Product Inventory image properties
+    """
+
+    product_inventory = models.ForeignKey(
+        ProductInventory,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="media_product_inventory",
+    )
+    title = models.CharField(
+        max_length=255,
+        unique=False,
+        verbose_name=_("Product Image Title"),
+        help_text=_("Format : Required"),
+    )
+    image = models.ImageField(
+        unique=False,
+        blank=False,
+        verbose_name=_("Product Image"),
+        help_text=_("Format : required"),
+        upload_to="images/product/",
+    )
+    alt_text = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name=_("Alt Text"),
+        help_text=_("format : Not Required"),
+    )
+    is_featured = models.BooleanField(
+        default=False,
+        verbose_name=_("Is Featured ?"),
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "Inventory Images"
