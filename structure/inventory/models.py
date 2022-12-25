@@ -214,6 +214,11 @@ class ProductInventory(TimeStampMixin):
     brand = models.ForeignKey(
         Brand, on_delete=models.PROTECT, null=True, related_name="brand"
     )
+    attributes = models.ManyToManyField(
+        "inventory.ProductAttributeValue",
+        related_name="product_attribute_values",
+        through="ProductAttributeValues",
+    )
 
     def __str__(self):
         return "Product : {} , Type : {}".format(self.product, self.product_type)
@@ -314,3 +319,94 @@ class Stock(TimeStampMixin):
 
     class Meta:
         verbose_name_plural = "Product Inventory Stock"
+
+
+"""
+Prodcut Attributes models and Dependency 
+"""
+
+## product Attribute models
+class ProductAttribute(TimeStampMixin):
+    """
+    Attributes properties
+    """
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        blank=False,
+        verbose_name=_("Attribute Name"),
+        help_text=_("Format : Should Be unique"),
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Attribute Description"),
+        help_text=_("Format : Not Required"),
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Product Attribute"
+
+
+## Product Attribute Value models
+class ProductAttributeValue(TimeStampMixin):
+    """
+    Attribute values properties
+    """
+
+    attribute = models.ForeignKey(
+        ProductAttribute,
+        on_delete=models.PROTECT,
+        null=True,
+        related_name="product_attribute",
+        verbose_name=_("Attribute Name"),
+        help_text=_("Format : Required"),
+    )
+    attribute_value = models.CharField(
+        max_length=255,
+        unique=False,
+        blank=False,
+        verbose_name=_("Attribute Value Name"),
+        help_text=_("Format : max 255 character"),
+    )
+
+    def __str__(self):
+        return "Attribute Name : {} , Value : {}".format(
+            self.attribute, self.attribute_value
+        )
+
+    class Meta:
+        verbose_name_plural = "Product Attribute Value"
+
+
+## Product Attribute Values
+class ProductAttributeValues(TimeStampMixin):
+    """
+    Product link to Attribute values
+    through models
+    """
+
+    product_inventory = models.ForeignKey(
+        ProductInventory,
+        on_delete=models.PROTECT,
+        related_name="inventory_values",
+        null=True,
+    )
+    attributes = models.ForeignKey(
+        ProductAttributeValue,
+        on_delete=models.PROTECT,
+        null=True,
+        related_name="attribute_values",
+    )
+
+    def __str__(self):
+        return "Product Inventory : {}, Attributes : {}".format(
+            self.product_inventory, self.attributes
+        )
+
+    class Meta:
+        unique_together = ("product_inventory", "attributes")
