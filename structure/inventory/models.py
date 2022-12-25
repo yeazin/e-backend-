@@ -268,3 +268,49 @@ class ProductInventoryMedia(TimeStampMixin):
 
     class Meta:
         verbose_name_plural = "Inventory Images"
+
+
+"""
+Stock models 
+    Note : This models is created for tracking the stock/quantity for 
+    Product Inventory
+"""
+
+
+class Stock(TimeStampMixin):
+    """
+    Product Stock properties
+    """
+
+    product_inventory = models.OneToOneField(
+        ProductInventory,
+        on_delete=models.PROTECT,
+        related_name="product_inventory_stock",
+    )
+    last_checked = models.DateTimeField(
+        unique=False,
+        blank=True,
+        null=True,
+        verbose_name=_("Last Inventory Stock Checked"),
+        help_text=_("Format : Not Required"),
+    )
+    units = models.IntegerField(
+        default=0,
+        unique=False,
+        verbose_name=_("Product Unit/stock"),
+        help_text=_("Format : Default 0"),
+    )
+    units_sold = models.IntegerField(
+        default=0,
+        unique=False,
+        verbose_name=_("Product Unit/stock sold"),
+        help_text=_("Format : Default 0"),
+    )
+
+    def __str__(self):
+        return "Product : {}, In Stock : {} , Sold : {}".format(
+            self.product_inventory, self.units, self.units_sold
+        )
+
+    class Meta:
+        verbose_name_plural = "Product Inventory Stock"
