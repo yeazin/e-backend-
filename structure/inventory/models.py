@@ -3,7 +3,7 @@ Inventory Models
 """
 
 from django.db import models
-from mainConfig.models.mixin import TimeStampMixin
+from structure.core.base_models import TimeStampMixin
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 
