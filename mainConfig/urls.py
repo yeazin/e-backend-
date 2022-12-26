@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -15,30 +14,29 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Assets Tracker",
-      default_version='v1',
-      description="E Backend API",
-      contact=openapi.Contact(email="contact@test.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="Assets Tracker",
+        default_version="v1",
+        description="E Backend API",
+        contact=openapi.Contact(email="contact@test.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    ## apps  url config 
-    path('',include('structure.accounts.urls')),
-
+    path("admin/", admin.site.urls),
+    ## apps  url config
+    path("api/v1/accounts/", include("structure.accounts.urls")),
+    path("api/v1/inventory/", include("structure.inventory.urls")),
     ## API authentication ENDPOINT
     # path('api/token/', views.APILoginView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # Redoc Documention
-    path('', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
 
-## static config 
-urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+## static config
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
