@@ -131,7 +131,7 @@ class Brand(TimeStampMixin):
         max_length=100,
         unique=True,
         blank=False,
-        verbose_name=_("Product Type"),
+        verbose_name=_("Brand Name"),
         help_text=_("Format: Required and Unique"),
     )
 
