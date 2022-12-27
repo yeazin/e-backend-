@@ -30,7 +30,7 @@ Brand Serializer
 class BrandSerializer(BaseSerializer):
     class Meta:
         model = Brand
-        fields = BaseSerializer.Meta.fields + ("name")
+        fields = BaseSerializer.Meta.fields + ("name",)
 
 
 """
@@ -61,7 +61,7 @@ Product Type Serializer
 class ProductTypeSerializer(BaseSerializer):
     class Meta:
         model = ProductType
-        fields = BaseSerializer.Meta.fields + ("name")
+        fields = BaseSerializer.Meta.fields + ("name",)
 
 
 """
@@ -72,7 +72,10 @@ Product Attribute Serializer
 class ProductAttributeSerializer(BaseSerializer):
     class Meta:
         model = ProductAttribute
-        fields = BaseSerializer.Meta.fields + ("name", "description")
+        fields = BaseSerializer.Meta.fields + (
+            "name",
+            "description",
+        )
 
 
 """
