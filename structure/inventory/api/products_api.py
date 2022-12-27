@@ -17,8 +17,6 @@ Product Serializer
 
 
 class ProductSerializer(BaseSerializer):
-    category = serializers.ManyRelatedField(many=True)
-
     class Meta:
         model = Product
         fields = BaseSerializer.Meta.fields + (
@@ -44,7 +42,6 @@ class ProductInventorySerializer(BaseSerializer):
     brand = serializers.PrimaryKeyRelatedField(
         queryset=Brand.objects.filter(is_active=True)
     )
-    attributes = serializers.ManyRelatedField(many=True)
 
     class Meta:
         model = ProductInventory
