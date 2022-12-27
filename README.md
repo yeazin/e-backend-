@@ -224,3 +224,64 @@ If you have any quiry regarding this project <br>
 Feel free to contact me :
 
 Email : naz.yeasin@gmail.com -->
+
+
+
+#### Project Structure 
+<br>
+
+```bash 
+
+
+    mainConfig/  #Root Config folder
+        |-- __init__.py
+        |__ settings/
+            |-- base.py # base settings
+            |-- development # development settings)
+        |-- urls.py (Root URL file)
+        |-- wsgi.py
+        |-- asgi.py
+
+
+    structure   # All the APPs will be under on it
+        |-- __init__.py
+        |__ core / 
+            |-- baes_models.py # Mixxin abstruct models 
+            |-- base_serialzier.py # Base API 
+        |__ accounts/ 
+            |-- __init.py
+            |__ models / # database folder  
+                |-- base.py # Base User config
+            |__ tests / # tests folder 
+                |-- __init__.py
+                |-- urls_tests.py # URLs test case
+            |-- views 
+            |-- serializer.py # API file
+            |-- urls.py # accounts URL file)
+            |-- admin.py
+
+        |__ invenory /
+            |-- __init__.py
+            |-- models.py # Inventory database file
+            |__ views # Views folder
+                |-- category view # category views
+                |-- products view # products views 
+                |-- dependency view # dependency views
+            |__ tests / # tests folder 
+                |-- __init__.py
+                |-- urls_tests.py # URLs test case
+            |__ api / # API folder
+                |-- category api 
+                |-- dependency api
+                |-- products api
+            |-- urls.py # Code list URL file)
+            |-- admin.py
+
+    |-- manage.py
+    |-- .env  
+    |-- .gitignore
+    |-- db # development database 
+    |-- require.txt # package dependency file
+    
+
+```
