@@ -12,7 +12,10 @@ from structure.inventory.models import (
     ProductAttributeValues,
 )
 
-admin.site.register(Category)
+
+admin.site.register(
+    Category,
+)
 admin.site.register(Product)
 admin.site.register(Brand)
 admin.site.register(ProductType)

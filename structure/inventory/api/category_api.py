@@ -7,9 +7,9 @@ from structure.core.base_serializer import BaseSerializer
 
 
 class CategorySerializer(BaseSerializer):
-    parent = serializers.PrimaryKeyRelatedField(
-        queryset=Category.objects.filter(is_active=True)
-    )
+    # parent = serializers.PrimaryKeyRelatedField(
+    #     queryset=Category.objects.filter(is_active=True)
+    # )
 
     class Meta:
         model = Category
