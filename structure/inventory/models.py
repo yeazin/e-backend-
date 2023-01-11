@@ -93,7 +93,7 @@ class Product(TimeStampMixin):
         verbose_name_plural = _("Product Table")
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
 
 """
